@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heathrow Departures Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="board-shell">
+      <header class="board-header">
+        <div class="title-wrap">
+          <h1>HEATHROW DEPARTURES</h1>
+          <p>Flights in the next 6 hours</p>
+        </div>
+        <div class="meta-wrap">
+          <div id="clock" class="clock">--:--</div>
+          <div id="updated" class="updated">Updating...</div>
+        </div>
+      </header>
+
+      <main>
+        <div class="table-head grid-row">
+          <div>TIME</div>
+          <div>FLIGHT</div>
+          <div>DESTINATION</div>
+          <div>TERMINAL</div>
+          <div>GATE</div>
+          <div>STATUS</div>
+        </div>
+        <div id="rows" class="rows"></div>
+      </main>
+
+      <footer class="board-footer">
+        <span>Source: heathrow.com/departures</span>
+        <span id="error" class="error"></span>
+      </footer>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

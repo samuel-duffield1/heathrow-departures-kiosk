@@ -1,0 +1,22 @@
+version: '2.1'
+
+services:
+  board:
+    build: ./board
+    restart: always
+    environment:
+      - BOARD_REFRESH_INTERVAL_SECONDS=300
+    ports:
+      - "80"
+
+  browser:
+    image: bh.cr/balenalabs/browser-aarch64 # where <arch> is one of aarch64, arm32 or amd64
+    privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+    environment:
+      - LAUNCH_URL=http://board
+      - KIOSK=1
+      - LOCAL_HTTP_DELAY=60
+      - ROTATE_DISPLAY=left
+    ports:
+        - '5011' # management API (optional)
+        - '35173' # Chromium debugging port (optional)

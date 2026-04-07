@@ -1,0 +1,14 @@
+{
+  "name": "heathrow-departures-board",
+  "version": "1.0.0",
+  "description": "Kiosk departures board for Heathrow flights",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "luxon": "^3.5.0"
+  }
+}
