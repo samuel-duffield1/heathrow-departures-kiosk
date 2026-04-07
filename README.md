@@ -2,6 +2,8 @@
 
 A balena multi-container app that shows a live Heathrow departures board in a full-screen kiosk browser.
 
+![Demo image](demo.png)
+
 ## Overview
 
 This project runs two services:
