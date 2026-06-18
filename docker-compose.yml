@@ -1,5 +1,9 @@
 version: '2.1'
 
+volumes:
+  display-socket:                    # Shared Wayland runtime directory
+  settings:                          # Only required if using PERSISTENT flag (see below)
+
 services:
   board:
     build: ./board
@@ -9,14 +13,34 @@ services:
     ports:
       - "80"
 
-  browser:
-    image: bh.cr/balenalabs/browser-aarch64 # where <arch> is one of aarch64, arm32 or amd64
-    privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+  display:
+    image: bh.cr/balena_solutions/display-aarch64 # companion compositor block; see its README for the image name
+    privileged: true
     environment:
-      - LAUNCH_URL=http://board
-      - KIOSK=1
-      - LOCAL_HTTP_DELAY=60
-      - ROTATE_DISPLAY=left
+      DISPLAY_RESOLUTION: 1920x1080
+      DISPLAY_ROTATION: 270
+      DISPLAY_SCALE: 1
+    volumes:
+      - display-socket:/run
+    labels:
+      io.balena.features.dbus: '1'
+
+  browser:
+    build: ./browser
+    privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+    depends_on:
+      - display
+    environment:
+      XDG_RUNTIME_DIR: /run/user/0
+      WAYLAND_DISPLAY: wayland-0
+      LAUNCH_URL: http://board
+      KIOSK: 1
+      LOCAL_HTTP_DELAY: 60
+    devices:
+      - /dev/dri:/dev/dri
     ports:
         - '5011' # management API (optional)
         - '35173' # Chromium debugging port (optional)
+    volumes:
+      - display-socket:/run
+      - 'settings:/data' # Only required if using PERSISTENT flag (see below)

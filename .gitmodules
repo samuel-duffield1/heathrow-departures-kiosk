@@ -1,0 +1,3 @@
+[submodule "browser"]
+	path = browser
+	url = git@github.com:balena-io-experimental/browser.git
